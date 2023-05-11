@@ -16,6 +16,8 @@ public class CuentaCobrar implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int num_cuenta;
+
     private Date fecha_cobro;
+
     private String estado;
 }

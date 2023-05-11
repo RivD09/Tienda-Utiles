@@ -13,11 +13,8 @@ import java.sql.Date;
 public class DetalleFactura implements Serializable {
     public static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int num_detalle;
-
-    private int num_factura;
+    @EmbeddedId
+    private PkDetalleFactura pkDetalleFactura;
 
     @ManyToOne
     @JoinColumn(name ="cod_articulo")
