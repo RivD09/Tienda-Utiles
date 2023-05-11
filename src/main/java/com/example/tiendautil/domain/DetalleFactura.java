@@ -16,8 +16,14 @@ public class DetalleFactura implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int num_detalle;
+
     private int num_factura;
-    private int cod_articulo;
+
+    @ManyToOne
+    @JoinColumn(name ="cod_articulo")
+    private Articulos articulos;
+
     private int cantidad;
+
     private float precio;
 }

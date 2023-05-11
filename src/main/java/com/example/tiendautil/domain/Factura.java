@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,8 +17,19 @@ public class Factura implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int num_factura;
-    @NotEmpty
-    private int cod_cliente;
+
+    @ManyToOne()
+    @JoinColumn(name ="cod_cliente")
+    private Cliente cliente;
+
     private Date fecha;
-    private int num_cuenta;
+
+    //Posible error
+    @OneToMany()
+    @JoinColumn(name = "num_factura")
+    private List<DetalleFactura> detalleFacturas;
+
+    @OneToOne
+    @JoinColumn(name = "num_cuenta")
+    private CuentaCobrar cuentaCobrar;
 }

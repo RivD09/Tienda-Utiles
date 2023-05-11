@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,8 +16,13 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cod_cliente;
+
     @NotEmpty
     private String nombre;
+
     @NotEmpty
     private float ruc;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Factura> facturas;
 }
