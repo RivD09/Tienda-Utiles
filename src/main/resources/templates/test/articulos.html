@@ -7,27 +7,29 @@
 <body>
 <div>
     <h1>TIENDA UTIL</h1>
-    <img src="/imagenes/LogoTiendaUtil.png">
+    <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
 </div>
 <div>
-    <table border="1px">
-        <tr>
-            <th><h3>Registrar Articulo</h3></th>
-        </tr>
-        <tr>
-            <td>Nombre</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>Precio</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>Cantidad</td>
-            <td><input type="text"></td>
-        </tr>
-    </table>
-    <button>Registrar</button>
+    <form>
+        <table border="1px">
+            <tr>
+                <th><h3>Registrar Articulo</h3></th>
+            </tr>
+            <tr>
+                <td>Nombre</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Precio</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Cantidad</td>
+                <td><input type="text"></td>
+            </tr>
+        </table>
+        <button>Registrar</button>
+    </form>
 </div>
 <div>
     <div>
@@ -43,6 +45,7 @@
             <tr></tr>
         </table>
     </div>
+    <a th:href="@{/}">Regresar</a>
 </div>
 </body>
 </html>

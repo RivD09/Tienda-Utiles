@@ -2,6 +2,7 @@ package com.example.tiendautil.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,8 +21,8 @@ public class Cliente implements Serializable {
     @NotEmpty
     private String nombre;
 
-    @NotEmpty
-    private float ruc;
+    @NotNull
+    private int ruc;
 
     @OneToMany(mappedBy = "cliente")
     private List<Factura> facturas;

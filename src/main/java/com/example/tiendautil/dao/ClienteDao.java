@@ -1,7 +1,7 @@
 package com.example.tiendautil.dao;
 
-import com.example.tiendautil.domain.Articulos;
+import com.example.tiendautil.domain.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClienteDao extends JpaRepository<Articulos, Integer> {
+public interface ClienteDao extends JpaRepository<Cliente, Integer> {
 }

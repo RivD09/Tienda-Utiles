@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Tienda Util</title>
@@ -7,17 +7,17 @@
 <body>
     <div>
         <h1>TIENDA UTIL</h1>
-        <img src="/imagenes/LogoTiendaUtil.png" alt="Logo">
+        <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
     </div>
     <div>
         <table border="1px">
             <tr>
-                <td><a href="index.html">Registrar Compra</a></td>
-                <td><a href="index.html">Clientes</a></td>
+                <td><a th:href="@{/compra}">Registrar Compra</a></td>
+                <td><a th:href="@{/cliente}">Clientes</a></td>
             </tr>
             <tr>
                 <td><a href="index.html">Facturas</a></td>
-                <td><a href="index.html">Inventario</a></td>
+                <td><a th:href="@{/articulo}">Inventario</a></td>
             </tr>
             <tr>
                 <td><a href="index.html">Cuentas por Cobrar</a></td>

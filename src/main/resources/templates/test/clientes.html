@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Prueba Articulos</title>
@@ -7,37 +8,58 @@
 <body>
 <div>
     <h1>TIENDA UTIL</h1>
-    <img src="/imagenes/LogoTiendaUtil.png">
+    <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
 </div>
 <div>
-    <table border="1px">
-        <tr>
-            <th><h3>Registrar Articulo</h3></th>
-        </tr>
-        <tr>
-            <td>Nombres y Apellidos</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>RUC</td>
-            <td><input type="text"></td>
-        </tr>
-    </table>
-    <button>Registrar</button>
+    <form th:action="@{/guardarCliente}" method="post" th:object="${cliente}">
+        <table border="1px">
+            <tr>
+                <th><h3>Registrar Articulo</h3></th>
+            </tr>
+            <input type="hidden" name="cod_cliente" th:field="*{cod_cliente}">
+            <tr>
+                <td>
+                    <label for="nombre">Nombres y Apellidos</label>
+                </td>
+                <td><input type="text" name="nombre" th:field="*{nombre}"></td>
+                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error nombre</span>
+            </tr>
+            <tr>
+                <td>
+                    <label for="ruc">RUC</label>
+                </td>
+                <td><input type="text" name="ruc" th:field="*{ruc}"></td>
+                <span th:if="${#fields.hasErrors('ruc')}" th:errors="*{ruc}">Error RUC</span>
+            </tr>
+        </table>
+        <input type="submit" name="guardar" value="Registrar Cliente">
+    </form>
 </div>
+
 <div>
     <div>
         <h2>Catalogo de Utiles</h2>
-        <table border="1px">
-            <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>RUC</th>
-            </tr>
-            <tr></tr>
-            <tr></tr>
-        </table>
+        <div th:if="${clientes!=null and !clientes.empty}">
+            <table border="1px">
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>RUC</th>
+                    <th></th>
+                </tr>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.cod_cliente}">Mostrar codigo</td>
+                    <td th:text="${cliente.nombre}">Mostrar nombres</td>
+                    <td th:text="${cliente.ruc}">Mostrar RUC</td>
+                    <td><a th:href="@{/eliminarCliente/} + ${cliente.cod_cliente}">Eliminar</a></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${clientes==null or clientes.empty}">
+            Lista de Clientes vacia
+        </div>
     </div>
+    <a th:href="@{/}">Regresar</a>
 </div>
 </body>
 </html>
