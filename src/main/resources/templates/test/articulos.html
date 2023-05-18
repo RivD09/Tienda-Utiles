@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Prueba Articulos</title>
+    <title>Articulos</title>
 </head>
 <body>
 <div>
@@ -10,40 +11,61 @@
     <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
 </div>
 <div>
-    <form>
+    <form th:action="@{/guardarArticulo}" method="post" th:object="${articulo}">
         <table border="1px">
             <tr>
                 <th><h3>Registrar Articulo</h3></th>
             </tr>
+            <input type="hidden" name="cod_articulo" th:field="*{cod_articulo}">
             <tr>
-                <td>Nombre</td>
-                <td><input type="text"></td>
+                <td>
+                    <label for="nombre">Nombre</label>
+                </td>
+                <td><input type="text" name="nombre" th:field="*{nombre}">
+                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"> Error nombre</span>
             </tr>
             <tr>
-                <td>Precio</td>
-                <td><input type="text"></td>
+                <td>
+                    <label for="precio_unit">Precio</label>
+                </td>
+                <td><input type="text" name="precio_unit" th:field="*{precio_unit}"></td>
+                <span th:if="${#fields.hasErrors('precio_unit')}" th:errors="*{precio_unit}"> Error precio</span>
             </tr>
             <tr>
-                <td>Cantidad</td>
-                <td><input type="text"></td>
+                <td>
+                    <label for="cantidad">Cantidad</label>
+                </td>
+                <td><input type="text" name="cantidad" th:field="*{cantidad}"></td>
+                <span th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"> Error cantidad</span>
             </tr>
         </table>
-        <button>Registrar</button>
+        <input type="submit" name="guardar" value="Registrar Articulo" onclick="location.reload()">
     </form>
 </div>
+
 <div>
     <div>
         <h2>Catalogo de Utiles</h2>
-        <table border="1px">
-            <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Precio Unit.</th>
-                <th>Cantidad Disp.</th>
-            </tr>
-            <tr></tr>
-            <tr></tr>
-        </table>
+        <div th:if="${articulos!=null and !articulos.empty}">
+            <table border="1px">
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio Unit.</th>
+                    <th>Cantidad Disp.</th>
+                </tr>
+                <tr th:each="articulo : ${articulos}">
+                    <td th:text="${articulo.cod_articulo}">Mostrar codigo</td>
+                    <td th:text="${articulo.nombre}">Mostrar nombre</td>
+                    <td th:text="${articulo.precio_unit}">Mostrar precio</td>
+                    <td th:text="${articulo.cantidad}">Mostrar cantidad</td>
+                    <td><a th:href="@{/eliminarArticulo/} + ${articulo.cod_articulo}">Eliminar</a></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${articulos==null or articulos.empty}">
+            Lista de Articulos vacia
+        </div>
     </div>
     <a th:href="@{/}">Regresar</a>
 </div>

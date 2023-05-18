@@ -1,11 +1,9 @@
 package com.example.tiendautil.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 @Data
 @Entity
@@ -18,7 +16,7 @@ public class DetalleFactura implements Serializable {
 
     @ManyToOne
     @JoinColumn(name ="cod_articulo")
-    private Articulos articulos;
+    private Articulo articulo;
 
     private int cantidad;
 

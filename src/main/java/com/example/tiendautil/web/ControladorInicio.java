@@ -1,8 +1,8 @@
 package com.example.tiendautil.web;
 
-import com.example.tiendautil.domain.Articulos;
+import com.example.tiendautil.domain.Articulo;
 import com.example.tiendautil.domain.Cliente;
-import com.example.tiendautil.servicio.ArticulosService;
+import com.example.tiendautil.servicio.ArticuloService;
 import com.example.tiendautil.servicio.ClienteService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ControladorInicio {
 
     @Autowired
-    private ArticulosService articulosService;
+    private ArticuloService articuloService;
 
     @Autowired
-    ClienteService clienteService;
+    private ClienteService clienteService;
+
 
 
     @GetMapping("/")
@@ -38,7 +39,11 @@ public class ControladorInicio {
     }
 
     @GetMapping("/articulo")
-    public String listarArticulo(Model model){
+    public String listarArticulo(Model model, Articulo articulo){
+        var articulos = articuloService.listarArticulos();
+
+        model.addAttribute("articulos",articulos);
+        log.info("*****Listando articulos");
         return "/test/articulos";
     }
 
@@ -51,11 +56,37 @@ public class ControladorInicio {
     public String guardarCliente(@Valid Cliente cliente, Errors errores){
         log.info("*****Guardando cliente");
         if (errores.hasErrors()){
-            return "/test/clientes";
+            return "redirect:/cliente";
         }
         clienteService.guardar(cliente);
         log.info("*****Se guardo cliente");
-        return "/test/clientes";
+        return "redirect:/cliente";
     }
 
+    @GetMapping("/eliminarCliente/{cod_cliente}")
+    public String eliminarCliente(@Valid Cliente cliente, Errors errores){
+        log.info("*****Borrando cliente");
+        clienteService.eliminar(cliente);
+        log.info("*****Se elimino cliente" + cliente.getNombre());
+        return "redirect:/cliente";
+    }
+
+    @PostMapping("/guardarArticulo")
+    public String guardarArticulo(@Valid Articulo articulo, Errors errores){
+        log.info("*****Guardando articulo");
+        if (errores.hasErrors()){
+            return "redirect:/articulo";
+        }
+        articuloService.guardar(articulo);
+        log.info("*****Se guardo articulo");
+        return "redirect:/articulo";
+    }
+
+    @GetMapping("/eliminarArticulo/{cod_articulo}")
+    public String eliminarArticulo(@Valid Articulo articulo, Errors errores){
+        log.info("*****Borrando articulo");
+        articuloService.eliminar(articulo);
+        log.info("*****Se elimino articulo" + articulo.getNombre());
+        return "redirect:/articulo";
+    }
 }

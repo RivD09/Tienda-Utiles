@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Prueba Articulos</title>
+    <title>Clientes</title>
 </head>
 <body>
 <div>
@@ -11,6 +11,7 @@
     <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
 </div>
 <div>
+    <!--th:object busca entre las entidades del paquete domain-->
     <form th:action="@{/guardarCliente}" method="post" th:object="${cliente}">
         <table border="1px">
             <tr>
@@ -32,7 +33,7 @@
                 <span th:if="${#fields.hasErrors('ruc')}" th:errors="*{ruc}">Error RUC</span>
             </tr>
         </table>
-        <input type="submit" name="guardar" value="Registrar Cliente">
+        <input type="submit" name="guardar" value="Registrar Cliente" onclick="location.reload()">
     </form>
 </div>
 
