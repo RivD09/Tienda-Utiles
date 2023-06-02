@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="es">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+
+</head>
+<body>
+    <header th:fragment="header">
+        <h1>TIENDA UTILES</h1>
+        <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
+    </header>
+
+    <div th:fragment="tablaArticulo">
+        PRUEBAAS
+        <div th:if="${articulos!=null and !articulos.empty}">
+        </div>
+        <div th:if="${articulos==null or articulos.empty}">
+            <table>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio Unit.</th>
+                    <th>Cantidad Disp.</th>
+                </tr>
+                <tr>
+                    Articulo no encontrado
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

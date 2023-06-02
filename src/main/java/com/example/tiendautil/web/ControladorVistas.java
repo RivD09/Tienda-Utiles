@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @Slf4j
-public class ControladorInicio {
+public class ControladorVistas {
 
     @Autowired
     private ArticuloService articuloService;
@@ -89,4 +89,10 @@ public class ControladorInicio {
         log.info("*****Se elimino articulo" + articulo.getNombre());
         return "redirect:/articulo";
     }
+
+    @PostMapping("buscarArticulo")
+    public void buscarArticulo(Model model){
+        model.getAttribute("nombreArticulo");
+    }
+
 }

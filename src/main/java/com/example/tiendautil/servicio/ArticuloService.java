@@ -12,4 +12,6 @@ public interface ArticuloService {
     public void eliminar(Articulo articulo);
     public Articulo encontrarArticulo(Articulo articulo);
 
+    public List<Articulo> buscarArticulo(String nombre);
+
 }

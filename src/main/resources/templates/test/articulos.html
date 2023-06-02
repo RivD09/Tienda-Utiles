@@ -6,10 +6,9 @@
     <title>Articulos</title>
 </head>
 <body>
-<div>
-    <h1>TIENDA UTIL</h1>
-    <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
-</div>
+
+<header th:replace="layout/plantilla :: header"></header>
+
 <div>
     <form th:action="@{/guardarArticulo}" method="post" th:object="${articulo}">
         <table border="1px">

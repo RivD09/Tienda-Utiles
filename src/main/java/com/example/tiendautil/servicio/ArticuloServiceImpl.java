@@ -37,4 +37,11 @@ public class ArticuloServiceImpl implements ArticuloService {
     public Articulo encontrarArticulo(Articulo articulo) {
         return articuloDao.findById(articulo.getCod_articulo()).orElse(null);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Articulo> buscarArticulo(String nombre){
+        return (List<Articulo>) articuloDao.findByNombreContaining(nombre);
+    }
+
 }
