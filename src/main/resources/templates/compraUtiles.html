@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Compra Utiles</title>
+    <script src="/js/main.js"></script>
 </head>
 <body>
 <header th:replace="layout/plantilla :: header"></header>
@@ -29,24 +30,26 @@
 <div>
     <div>
         <h2>Utiles</h2>
-        <form>
-            <input id="busca-articulo" name="nombreArticulo" type="text">
-            <input type="submit" name="guardar" value="Bucar" onclick="">
-        </form>
+        <input id="nombre-articulo" type="text">
+        <button onclick="buscarArticulos()">Buscar</button>
+        <br>
+        <br>
+        <div>
+            <table id="tabla-articulos" border="1px">
+
+            </table>
+        </div>
     </div>
     <div>
         <h2>Carrito</h2>
         <input type="button" value="Comprar">
-        <table>
-            <tr>
-                <th>Código</th>
-                <th>Articulo</th>
-                <th>Cantidad</th>
-                <th></th>
-            </tr>
-            <tr></tr>
-            <tr></tr>
+        <br>
+        <br>
+        <table id="tabla-carrito" border="1px">
+
         </table>
+        <h3>Total</h3>
+        <input type="number" value="0">
     </div>
     <a th:href="@{/}">Regresar</a>
 </div>
