@@ -1,79 +1,74 @@
 function buscarArticulos() {
     var xhr = new XMLHttpRequest();
     var text = document.getElementById("nombre-articulo");
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 console.log("200")
                 var data = JSON.parse(xhr.responseText);
                 console.log(data)
                 construirTabla(data);
+
             } else {
                 console.log(text.value)
                 alert("a" + text.value + " b");
             }
         }
     };
-    xhr.open("GET", "lista/buscar/" + text.value  , true);
+    xhr.open("GET", "lista/buscar/" + text.value, true);
     xhr.send();
 }
 
 function construirTabla(data) {
-
-    // Obtener una referencia al elemento contenedor de la tabla
     var tablaArticulos = document.getElementById("tabla-articulos");
+    limpiarTabla(tablaArticulos);
+    crearEncabezado(tablaArticulos);
+    crearFilasDatos(data, tablaArticulos);
+}
 
-    // Eliminar la tabla existente, si la hay
-    while (tablaArticulos.firstChild) {
-        tablaArticulos.removeChild(tablaArticulos.firstChild);
+function limpiarTabla(tabla) {
+    while (tabla.firstChild) {
+        tabla.removeChild(tabla.firstChild);
     }
+}
 
-    // Crear la fila de encabezado
+function crearEncabezado(tabla) {
     var encabezado = document.createElement("tr");
+    var encabezadoColumnas = ["Código", "Nombre", "Precio", "Disponible", "Cantidad a llevar"];
 
-    // Crear las celdas de encabezado
-    var encabezadoCodArticulo = document.createElement("th");
-    encabezadoCodArticulo.textContent = "Código";
-    encabezado.appendChild(encabezadoCodArticulo);
+    encabezadoColumnas.forEach(function (titulo) {
+        var celda = document.createElement("th");
+        celda.textContent = titulo;
+        encabezado.appendChild(celda);
+    });
 
-    var encabezadoNombre = document.createElement("th");
-    encabezadoNombre.textContent = "Nombre";
-    encabezado.appendChild(encabezadoNombre);
+    tabla.appendChild(encabezado);
+}
 
-    var encabezadoPrecio = document.createElement("th");
-    encabezadoPrecio.textContent = "Precio";
-    encabezado.appendChild(encabezadoPrecio);
+function crearEncabezadoCarrito(tabla) {
+    var encabezado = document.createElement("tr");
+    var encabezadoColumnas = ["Código", "Nombre", "Precio", "Cantidad", "Subtotal", "Borrar"];
 
-    var encabezadoDisponible = document.createElement("th");
-    encabezadoDisponible.textContent = "Disponible";
-    encabezado.appendChild(encabezadoDisponible);
+    encabezadoColumnas.forEach(function (titulo) {
+        var celda = document.createElement("th");
+        celda.textContent = titulo;
+        encabezado.appendChild(celda);
+    });
 
-    var encabezadoCantidad = document.createElement("th");
-    encabezadoCantidad.textContent = "Cantidad a llevar";
-    encabezado.appendChild(encabezadoCantidad);
+    tabla.appendChild(encabezado);
+}
 
-    // Agregar la fila de encabezado a la tabla
-    tablaArticulos.appendChild(encabezado);
 
-    // Recorrer los datos y crear las filas de datos
-    data.forEach(function(articulo) {
+function crearFilasDatos(data, tabla) {
+    data.forEach(function (articulo) {
         var fila = document.createElement("tr");
+        var columnas = [articulo.cod_articulo, articulo.nombre, articulo.precio_unit, articulo.cantidad];
 
-        var celdaCodArticulo = document.createElement("td");
-        celdaCodArticulo.textContent = articulo.cod_articulo;
-        fila.appendChild(celdaCodArticulo);
-
-        var celdaNombre = document.createElement("td");
-        celdaNombre.textContent = articulo.nombre;
-        fila.appendChild(celdaNombre);
-
-        var celdaPrecio = document.createElement("td");
-        celdaPrecio.textContent = articulo.precio_unit;
-        fila.appendChild(celdaPrecio);
-
-        var celdaDisponible = document.createElement("td");
-        celdaDisponible.textContent = articulo.cantidad;
-        fila.appendChild(celdaDisponible);
+        columnas.forEach(function (valor) {
+            var celda = document.createElement("td");
+            celda.textContent = valor;
+            fila.appendChild(celda);
+        });
 
         var celdaNumero = document.createElement("td");
         var inputNumero = document.createElement("input");
@@ -81,97 +76,117 @@ function construirTabla(data) {
         inputNumero.min = 0;
         inputNumero.max = articulo.cantidad;
 
-        // Añadir el evento input al campo de entrada
-        inputNumero.addEventListener("input", generarTablaValidada);
-
+        inputNumero.addEventListener("input", function () {agregarAlCarrito(articulo);} );
+        inputNumero.id="cant-" + articulo.cod_articulo;
         celdaNumero.appendChild(inputNumero);
         fila.appendChild(celdaNumero);
 
-        // Agregar la fila de datos a la tabla
-        tablaArticulos.appendChild(fila);
+        tabla.appendChild(fila);
+    });
+}
+
+var carritoArticulos = []; // Array para almacenar los artículos del carrito
+
+function agregarAlCarrito(articulo) {
+    var cantidadInput = document.getElementById("cant-" + articulo.cod_articulo);
+    var cantidad = parseInt(cantidadInput.value);
+
+    if (cantidad > 0) {
+        // Verificar si el artículo ya está en el carrito
+        var indiceExistente = carritoArticulos.findIndex(function (item) {
+            return item.cod_articulo === articulo.cod_articulo;
+        });
+
+        if (indiceExistente !== -1) {
+            // Actualizar la cantidad y subtotal del artículo existente en el carrito
+            var itemExistente = carritoArticulos[indiceExistente];
+            itemExistente.cantidad = cantidad;
+            itemExistente.subtotal = cantidad * articulo.precio_unit;
+        } else {
+            // Agregar un nuevo artículo al carrito
+            var nuevoItem = {
+                cod_articulo: articulo.cod_articulo,
+                nombre: articulo.nombre,
+                precio_unit: articulo.precio_unit,
+                cantidad: cantidad,
+                subtotal: cantidad * articulo.precio_unit
+            };
+            carritoArticulos.push(nuevoItem);
+        }
+
+        actualizarTablaCarrito();
+    }
+}
+
+function actualizarTablaCarrito() {
+    var carrito = document.getElementById("tabla-carrito");
+    limpiarTabla(carrito);
+    crearEncabezadoCarrito(carrito)
+
+    var totalCarrito = 0; // Variable para almacenar la suma de los subtotales
+
+    carritoArticulos.forEach(function (articulo) {
+        var filaCarrito = document.createElement("tr");
+        filaCarrito.id = "carrito-" + articulo.cod_articulo;
+
+        var celdaCodigo = document.createElement("td");
+        celdaCodigo.textContent = articulo.cod_articulo;
+        filaCarrito.appendChild(celdaCodigo);
+
+        var celdaNombre = document.createElement("td");
+        celdaNombre.textContent = articulo.nombre;
+        filaCarrito.appendChild(celdaNombre);
+
+        var celdaPrecio = document.createElement("td");
+        celdaPrecio.textContent = articulo.precio_unit;
+        filaCarrito.appendChild(celdaPrecio);
+
+        var celdaCantidadCarrito = document.createElement("td");
+        celdaCantidadCarrito.textContent = articulo.cantidad;
+        filaCarrito.appendChild(celdaCantidadCarrito);
+
+        var celdaSubtotal = document.createElement("td");
+        var subtotal = articulo.subtotal;
+        celdaSubtotal.textContent = subtotal.toFixed(2);
+        filaCarrito.appendChild(celdaSubtotal);
+
+        var celdaBorrar = document.createElement("td");
+        var botonBorrar = document.createElement("button");
+        botonBorrar.textContent = "Borrar";
+        botonBorrar.addEventListener("click", function () {
+            eliminarDelCarrito(articulo.cod_articulo);
+        });
+        celdaBorrar.appendChild(botonBorrar);
+        filaCarrito.appendChild(celdaBorrar);
+
+        carrito.appendChild(filaCarrito);
+
+        totalCarrito += subtotal; // Sumar el subtotal al total del carrito
     });
 
+    var totalCarritoElemento = document.getElementById("total-carrito");
+    totalCarritoElemento.textContent = "$" + totalCarrito.toFixed(2);
+
 }
 
-function generarTablaValidada() {
-    // Obtener una referencia a la tabla principal utilizando el id
-    var tablaPrincipal = document.getElementById("tabla-articulos");
+function eliminarDelCarrito(cod_articulo) {
+    var indice = carritoArticulos.findIndex(function (item) {
+        return item.cod_articulo === cod_articulo;
+    });
 
-    // Obtener una referencia al elemento contenedor de la tabla validada
-    var tablaCarrito = document.getElementById("tabla-carrito");
-
-    // Eliminar la tabla validada existente, si la hay
-    while (tablaCarrito.firstChild) {
-        tablaCarrito.removeChild(tablaCarrito.firstChild);
+    if (indice !== -1) {
+        var articuloEliminado = carritoArticulos[indice]; // Definir la variable articuloEliminado
+        carritoArticulos.splice(indice, 1);
+        actualizarTablaCarrito();
+        actualizarCantidadALlevar(articuloEliminado.cod_articulo, 0);
     }
 
-    // Crear la fila de encabezado
-    var encabezado = document.createElement("tr");
-
-    // Crear las celdas de encabezado
-    var encabezadoCodArticulo = document.createElement("th");
-    encabezadoCodArticulo.textContent = "Código";
-    encabezado.appendChild(encabezadoCodArticulo);
-
-    var encabezadoNombre = document.createElement("th");
-    encabezadoNombre.textContent = "Nombre";
-    encabezado.appendChild(encabezadoNombre);
-
-    var encabezadoPrecio = document.createElement("th");
-    encabezadoPrecio.textContent = "Precio";
-    encabezado.appendChild(encabezadoPrecio);
-
-    var encabezadoCantidad = document.createElement("th");
-    encabezadoCantidad.textContent = "Cantidad";
-    encabezado.appendChild(encabezadoCantidad);
-
-    var encabezadoSubtotal = document.createElement("th");
-    encabezadoSubtotal.textContent = "Subtotal";
-    encabezado.appendChild(encabezadoSubtotal);
-
-    // Agregar la fila de encabezado a la tabla
-    tablaCarrito.appendChild(encabezado);
-
-    // Obtener todas las filas de la tabla principal
-    var filas = tablaPrincipal.querySelectorAll("tr");
-
-    // Recorrer las filas y generar la tabla validada
-    for (var i = 1; i < filas.length; i++) {
-        var fila = filas[i];
-        var inputNumero = fila.querySelector("input");
-        if (inputNumero && inputNumero.value > 0) {
-            var codigo = fila.children[0].textContent;
-            var nombre = fila.children[1].textContent;
-            var precio = fila.children[2].textContent;
-            var cantidad = inputNumero.value;
-            var subtotal = inputNumero.value;
-
-            // Crear las celdas de la fila validada
-            var celdaCodArticuloValidado = document.createElement("td");
-            celdaCodArticuloValidado.textContent = codigo;
-
-            var celdaNombreValidado = document.createElement("td");
-            celdaNombreValidado.textContent = nombre;
-
-            var celdaPrecioValidado = document.createElement("td");
-            celdaPrecioValidado.textContent = precio;
-
-            var celdaCantidadValidado = document.createElement("td");
-            celdaCantidadValidado.textContent = cantidad;
-
-            var celdaSubtotalValidado = document.createElement("td");
-            celdaSubtotalValidado.textContent = subtotal;
-
-            // Crear la fila validada y agregar las celdas
-            var filaValidada = document.createElement("tr");
-            filaValidada.appendChild(celdaCodArticuloValidado);
-            filaValidada.appendChild(celdaNombreValidado);
-            filaValidada.appendChild(celdaPrecioValidado);
-            filaValidada.appendChild(celdaCantidadValidado);
-            filaValidada.appendChild(celdaSubtotalValidado);
-
-            // Agregar la fila validada a la tabla validada
-            tablaCarrito.appendChild(filaValidada);
-        }
-    }
 }
+
+function actualizarCantidadALlevar(cod_articulo, cantidad) {
+    var cantidadInput = document.getElementById("cant-" + cod_articulo);
+    cantidadInput.value = cantidad;
+}
+
+
+
