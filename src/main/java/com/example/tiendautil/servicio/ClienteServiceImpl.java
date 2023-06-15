@@ -2,12 +2,14 @@ package com.example.tiendautil.servicio;
 
 import com.example.tiendautil.dao.ClienteDao;
 import com.example.tiendautil.domain.Cliente;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class ClienteServiceImpl implements ClienteService{
 
@@ -24,6 +26,12 @@ public class ClienteServiceImpl implements ClienteService{
     @Transactional
     public void guardar(Cliente cliente) {
         clienteDao.save(cliente);
+    }
+
+    public Cliente guardarYDevolver(Cliente cliente){
+        cliente = clienteDao.saveAndFlush(cliente);
+        log.warn("***" + cliente.getCod_cliente() + " " + cliente.getNombre() + " " + cliente.getRuc());
+        return cliente;
     }
 
     @Override

@@ -2,8 +2,10 @@ package com.example.tiendautil.web;
 
 import com.example.tiendautil.domain.Articulo;
 import com.example.tiendautil.domain.Cliente;
+import com.example.tiendautil.domain.Factura;
 import com.example.tiendautil.servicio.ArticuloService;
 import com.example.tiendautil.servicio.ClienteService;
+import com.example.tiendautil.servicio.FacturaService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -23,6 +26,8 @@ public class ControladorVistas {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private FacturaService facturaService;
 
 
     @GetMapping("/")
@@ -93,6 +98,15 @@ public class ControladorVistas {
     @PostMapping("buscarArticulo")
     public void buscarArticulo(Model model){
         model.getAttribute("nombreArticulo");
+    }
+
+    @PostMapping("/factura")
+    public String generarFactura(@ModelAttribute Factura factura){
+        log.info("*****Generando factura");
+
+        facturaService.guardarFactura(factura);
+
+        return "/factura";
     }
 
 }

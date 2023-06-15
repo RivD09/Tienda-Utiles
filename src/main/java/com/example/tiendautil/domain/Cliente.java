@@ -24,6 +24,6 @@ public class Cliente implements Serializable {
     @NotNull
     private int ruc;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente")    //mappedBy: Indica el atributo que mapea la relación en la otra clase
     private List<Factura> facturas;
 }

@@ -12,27 +12,5 @@
         <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
     </header>
 
-    <div th:fragment="tablaArticulo(articulos)">
-        <div th:if="${articulos!=null and !articulos.empty}">
-            <table>
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>Precio Unit.</th>
-                    <th>Cantidad Disp.</th>
-                </tr>
-                <tr th:each="articulo : ${articulos}">
-                    <td th:text="${articulo.cod_articulo}">Mostrar codigo</td>
-                    <td th:text="${articulo.nombre}">Mostrar nombre</td>
-                    <td th:text="${articulo.precio_unit}">Mostrar precio</td>
-                    <td th:text="${articulo.cantidad}">Mostrar cantidad disp.</td>
-                </tr>
-            </table>
-        </div>
-        <div th:if="${articulos==null or articulos.empty}">
-            No hay datos
-        </div>
-    </div>
-
 </body>
 </html>

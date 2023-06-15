@@ -11,8 +11,13 @@ import java.io.Serializable;
 public class DetalleFactura implements Serializable {
     public static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    private PkDetalleFactura pkDetalleFactura;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int num_detalle;
+
+    @ManyToOne
+    @JoinColumn(name = "num_factura")
+    private Factura factura;
 
     @ManyToOne
     @JoinColumn(name ="cod_articulo")

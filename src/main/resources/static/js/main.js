@@ -124,25 +124,42 @@ function actualizarTablaCarrito() {
     crearEncabezadoCarrito(carrito)
 
     var totalCarrito = 0; // Variable para almacenar la suma de los subtotales
+    var indice = 0;
 
     carritoArticulos.forEach(function (articulo) {
         var filaCarrito = document.createElement("tr");
         filaCarrito.id = "carrito-" + articulo.cod_articulo;
 
         var celdaCodigo = document.createElement("td");
-        celdaCodigo.textContent = articulo.cod_articulo;
+        var inputCodigo = document.createElement("input");
+        inputCodigo.type="text";
+        inputCodigo.name="detalleFacturas[" + indice.toString() + "].articulo.cod_articulo";
+        inputCodigo.value = articulo.cod_articulo;
+        celdaCodigo.appendChild(inputCodigo);
         filaCarrito.appendChild(celdaCodigo);
 
         var celdaNombre = document.createElement("td");
-        celdaNombre.textContent = articulo.nombre;
+        var inputNombre = document.createElement("input");
+        inputNombre.type="text";
+        inputNombre.name="detalleFacturas[" + indice.toString() + "].articulo.nombre";
+        inputNombre.value = articulo.nombre;
+        celdaNombre.appendChild(inputNombre);
         filaCarrito.appendChild(celdaNombre);
 
         var celdaPrecio = document.createElement("td");
-        celdaPrecio.textContent = articulo.precio_unit;
+        var inputPrecio = document.createElement("input");
+        inputPrecio.type="text";
+        inputPrecio.name="detalleFacturas[" + indice.toString() + "].precio";
+        inputPrecio.value = articulo.precio_unit;
+        celdaPrecio.appendChild(inputPrecio);
         filaCarrito.appendChild(celdaPrecio);
 
         var celdaCantidadCarrito = document.createElement("td");
-        celdaCantidadCarrito.textContent = articulo.cantidad;
+        var inputCantidadCarrito = document.createElement("input");
+        inputCantidadCarrito.type="text";
+        inputCantidadCarrito.name="detalleFacturas[" + indice.toString() + "].cantidad";
+        inputCantidadCarrito.value = articulo.cantidad;
+        celdaCantidadCarrito.appendChild(inputCantidadCarrito);
         filaCarrito.appendChild(celdaCantidadCarrito);
 
         var celdaSubtotal = document.createElement("td");
@@ -162,6 +179,7 @@ function actualizarTablaCarrito() {
         carrito.appendChild(filaCarrito);
 
         totalCarrito += subtotal; // Sumar el subtotal al total del carrito
+        indice++;
     });
 
     var totalCarritoElemento = document.getElementById("total-carrito");
@@ -188,5 +206,20 @@ function actualizarCantidadALlevar(cod_articulo, cantidad) {
     cantidadInput.value = cantidad;
 }
 
+window.addEventListener('load', function() {
+    var nombresInput = document.getElementById("nombres");
+    var apellidosInput = document.getElementById("apellidos");
+    var nombresCompletosInput = document.getElementById("nombresCompletos");
 
+    nombresInput.addEventListener("input", actualizarNombresCompletos);
+    apellidosInput.addEventListener("input", actualizarNombresCompletos);
+
+    function actualizarNombresCompletos() {
+        var nombre = nombresInput.value;
+        var apellido = apellidosInput.value;
+        var nombreCompleto = nombre + " " + apellido;
+        nombresCompletosInput.value = nombreCompleto;
+        console.log(nombreCompleto)
+    }
+});
 

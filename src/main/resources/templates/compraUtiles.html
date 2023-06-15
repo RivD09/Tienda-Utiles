@@ -9,49 +9,53 @@
 <body>
 <header th:replace="layout/plantilla :: header"></header>
 <div>
-    <table>
-        <tr>
-            <th><h3>Cliente</h3></th>
-        </tr>
-        <tr>
-            <td>Nombres</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>Apellidos</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>RUC</td>
-            <td><input type="text"></td>
-        </tr>
-    </table>
-</div>
-<div>
-    <div>
-        <h2>Utiles</h2>
-        <input id="nombre-articulo" type="text">
-        <button onclick="buscarArticulos()">Buscar</button>
-        <br>
-        <br>
+    <form th:action="@{/factura}" method="post">
         <div>
-            <table id="tabla-articulos" border="1px">
-
+            <table>
+                <tr>
+                    <th><h3>Cliente</h3></th>
+                </tr>
+                <tr>
+                    <td>Nombres</td>
+                    <td><input type="text" id="nombres"></td>
+                </tr>
+                <tr>
+                    <td>Apellidos</td>
+                    <td><input type="text" id="apellidos"></td>
+                </tr>
+                <input type="hidden" id="nombresCompletos" name="cliente.nombre">
+                <tr>
+                    <td>RUC</td>
+                    <td><input type="text" name="cliente.ruc"></td>
+                </tr>
             </table>
         </div>
-    </div>
-    <div>
-        <h2>Carrito</h2>
-        <input type="button" value="Comprar">
+        <div>
+            <div>
+                <h2>Utiles</h2>
+                <input id="nombre-articulo" type="text">
+                <button type="button" onclick="buscarArticulos()">Buscar</button>
+                <br>
+                <br>
+                <div>
+                    <table id="tabla-articulos" border="1px">
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h2>Carrito</h2>
+                <br>
+                <br>
+                <table id="tabla-carrito" border="1px">
+                </table>
+                <h3>Total</h3>
+                <p id="total-carrito">$ 0.00</p>
+            </div>
+        </div>
+        <a th:href="@{/}">Regresar</a>
         <br>
-        <br>
-        <table id="tabla-carrito" border="1px">
-
-        </table>
-        <h3>Total</h3>
-        <p id="total-carrito">$ 0.00</p>
-    </div>
-    <a th:href="@{/}">Regresar</a>
+        <input type="submit" value="Comprar">
+    </form>
 </div>
 </body>
 </html>

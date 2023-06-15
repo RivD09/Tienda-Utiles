@@ -19,17 +19,16 @@ public class Factura implements Serializable {
     private int num_factura;
 
     @ManyToOne()
-    @JoinColumn(name ="cod_cliente")
+    @JoinColumn(name ="cod_cliente")    //JoinColumn: indica la columna que viene a ser la clave foranea
     private Cliente cliente;
 
     private Date fecha;
 
     //Posible error
-    @OneToMany()
-    @JoinColumn(name = "num_factura")
+    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
     private List<DetalleFactura> detalleFacturas;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "num_cuenta")
     private CuentaCobrar cuentaCobrar;
 }
