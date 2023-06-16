@@ -9,6 +9,5 @@ import java.util.List;
 public interface FacturaService {
 
     public void guardarFactura(Factura factura);
-
-
+    public float calcularTotal(Factura factura);
 }

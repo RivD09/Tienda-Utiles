@@ -9,7 +9,78 @@
 <header th:replace="layout/plantilla :: header"></header>
 <div>
     <h1>FACTURA</h1>
-</div>
+        <div th:object="${factura}">
+            <table>
+                <tr>
+                    <th><h3>Cliente</h3></th>
+                </tr>
+                <tr>
+                    <td>Apellidos y Nombres</td>
+                    <td><input type="text" id="nombres" disabled="disabled" th:value="*{getCliente().nombre}"></td>
+                </tr>
+                <tr>
+                    <td>RUC</td>
+                    <td><input type="text" name="cliente.ruc" disabled="disabled" th:value="*{getCliente().ruc}"></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <tr>
+                    <th><h3>Detalles</h3></th>
+                </tr>
+                <tr>
+                    <td>Número de Factura</td>
+                    <td><input type="text" id="nombres" disabled="disabled" th:value="*{getNum_factura()}"></td>
+                </tr>
+                <tr>
+                    <td>Fecha</td>
+                    <td><input type="text" id="apellidos" disabled="disabled" th:value="*{getFecha().toString()}"></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table border="1px">
+                <tr>
+                    <th><h3>Útiles</h3></th>
+                </tr>
+                <tr>
+                    <th>Código</th>
+                    <th>Artículo</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tr th:each="detalleFactura : ${detalle}">
+                    <td th:text="${detalleFactura.articulo.cod_articulo}">Mostrar Código</td>
+                    <td th:text="${detalleFactura.articulo.nombre}">Mostrar Artículo</td>
+                    <td th:text="${detalleFactura.cantidad}">Mostrar Cantidad</td>
+                    <td th:text="${detalleFactura.precio}">Mostrar Precio Unitario</td>
+                    <td th:text="${detalleFactura.cantidad*detalleFactura.precio}">Mostrar Subtotal</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <label>IGV</label>
+            <input type="text" disabled="disabled" th:value="${igv}" >
+            <label>Total a Pagar</label>
+            <input type="text" disabled="disabled" th:value="${total}">
+        </div>
 
+        <div>
+            <table border="1px">
+                <tr>
+                   <th>Número de Cuenta</th>
+                   <th>Fecha de Cobro</th>
+                   <th>Estado</th>
+                </tr>
+                <tr>
+                    <td th:text="${cuentaCobrar.num_cuenta}">Mostrar número de Cuenta</td>
+                    <td th:text="${cuentaCobrar.fecha_cobro.toString()}">Mostrar Fecha de Cobro</td>
+                    <td th:text="${cuentaCobrar.estado}">Mostrar Estado</td>
+                </tr>
+            </table>
+        </div>
+        <a th:href="@{/}">Regresar</a>
+</div>
 </body>
 </html>

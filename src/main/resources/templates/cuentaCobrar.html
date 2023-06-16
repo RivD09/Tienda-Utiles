@@ -1,10 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cuenta Por Cobrar</title>
 </head>
 <body>
+<header th:replace="layout/plantilla :: header"></header>
+<div>
+    <h1>CUENTA POR COBRAR</h1>
+    <div th:object="${factura}">
+        <table>
+            <tr>
+                <th><h3>Cliente</h3></th>
+            </tr>
+            <tr>
+                <td>Apellidos y Nombres</td>
+                <td><input type="text" id="nombres" disabled="disabled" th:value="*{getCliente().nombre}"></td>
+            </tr>
+            <tr>
+                <td>RUC</td>
+                <td><input type="text" name="cliente.ruc" disabled="disabled" th:value="*{getCliente().ruc}"></td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <th><h3>Detalles</h3></th>
+            </tr>
+            <tr>
+                <td>Número de Factura</td>
+                <td><input type="text" id="nombres" disabled="disabled" th:value="*{getNum_factura()}"></td>
+            </tr>
+            <tr>
+                <td>Fecha</td>
+                <td><input type="text" id="apellidos" disabled="disabled" th:value="*{getFecha().toString()}"></td>
+            </tr>
+        </table>
+    </div>
 
+    <div>
+        <table border="1px">
+            <tr>
+                <th><h3>Cuenta Por Cobrar</h3></th>
+            </tr>
+            <tr>
+                <th>Número de Cuenta</th>
+                <th>Total a Pagar</th>
+                <th>Fecha Cobro</th>
+                <th>Estado</th>
+            </tr>
+            <tr th:each="detalleFactura : ${detalle}">
+                <td th:text="${detalleFactura.articulo.cod_articulo}">Mostrar Código</td>
+                <td th:text="${detalleFactura.articulo.nombre}">Mostrar Artículo</td>
+                <td th:text="${detalleFactura.cantidad}">Mostrar Cantidad</td>
+                <td th:text="${detalleFactura.precio}">Mostrar Precio Unitario</td>
+                <td th:text="${detalleFactura.cantidad*detalleFactura.precio}">Mostrar Subtotal</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <label>IGV</label>
+        <input type="text" disabled="disabled" th:value="${igv}" >
+        <label>Total a Pagar</label>
+        <input type="text" disabled="disabled" th:value="${total}">
+    </div>
+    <a th:href="@{/}">Regresar</a>
+    <br>
+    <a th:href="@{/cuentaCobrar}">Cuenta por Cobrar</a>
+</div>
 </body>
 </html>

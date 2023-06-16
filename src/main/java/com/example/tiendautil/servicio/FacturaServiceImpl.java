@@ -66,6 +66,16 @@ public class FacturaServiceImpl implements FacturaService{
 
         facturaGuardada.setCuentaCobrar(cuentaCobrar);
         facturaDao.save(facturaGuardada);
-
     }
+
+    public float calcularTotal(Factura factura){
+        float total = 0;
+        List<DetalleFactura> detalleFacturasGuardada= factura.getDetalleFacturas();
+
+        for (int i=0; i<factura.getDetalleFacturas().size() ; i++){
+            total = total + detalleFacturasGuardada.get(i).getCantidad()*detalleFacturasGuardada.get(i).getPrecio();
+        }
+        return total;
+    }
+
 }

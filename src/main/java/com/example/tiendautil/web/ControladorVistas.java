@@ -101,11 +101,16 @@ public class ControladorVistas {
     }
 
     @PostMapping("/factura")
-    public String generarFactura(@ModelAttribute Factura factura){
+    public String generarFactura(@ModelAttribute Factura factura, Model model){
         log.info("*****Generando factura");
-
         facturaService.guardarFactura(factura);
-
+        model.addAttribute("factura",factura);
+        model.addAttribute("detalle",factura.getDetalleFacturas());
+        float total = facturaService.calcularTotal(factura);
+        double igv = total*0.18;
+        model.addAttribute("total",total);
+        model.addAttribute("igv",igv);
+        model.addAttribute("cuentaCobrar",factura.getCuentaCobrar());
         return "/factura";
     }
 
