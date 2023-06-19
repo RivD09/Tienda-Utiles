@@ -3,24 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Tienda Util</title>
+    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/2e21902613.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header th:replace="layout/plantilla :: header"></header>
-    <div>
-        <table border="1px">
-            <tr>
-                <td><a th:href="@{/compra}">Registrar Compra</a></td>
-                <td><a th:href="@{/cliente}">Clientes</a></td>
-            </tr>
-            <tr>
-                <td><a th:href="@{/cliente}">Facturas</a></td>
-                <td><a th:href="@{/articulo}">Inventario</a></td>
-            </tr>
-            <tr>
-                <td><a href="index.html">Cuentas por Cobrar</a></td>
-            </tr>
-        </table>
+    <header class="container text-center">
+        <div class="p-5 bg-dark text-white rounded">
+            <h1>Proyecto Tienda Utiles Escolares</h1>
+            <p>Proyecto realizado para poner en práctica conocimientos de Spring Boot, Hibernate y Thymeleaf</p>
+        </div>
+        <h1>TIENDA UTILES ESCOLARES</h1>
+        <img th:src="@{/images/LogoUtiles.png}" alt="Logo" class="img-fluid" >
+    </header>
+    <div class="container text-center">
+        <div class="container">
+            <div class="row text-center m-3">
+                <div class="col-4">
+                    <a th:href="@{/cliente}" role="button" class="btn btn-dark btn-lg p-4 m-3">Clientes</a>
+                </div>
+                <div class="col-4">
+                    <a th:href="@{/cliente}" role="button" class="btn btn-dark btn-lg p-4 m-3">Facturas</a>
+                </div>
+                <div class="col-4">
+                    <a th:href="@{/articulo}" role="button" class="btn btn-dark btn-lg p-4 m-3">Inventario</a>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-6">
+                    <a th:href="@{/compra}" role="button" class="btn btn-dark btn-lg p-4 m-3">Registrar Compra</a>
+                </div>
+                <div class="col-6">
+                    <a th:href="@{/compra}" role="button" class="btn btn-dark btn-lg p-4 m-3">Cuentas por Cobrar</a>
+                </div>
+            </div>
+        </div>
 
     </div>
+    <footer class="container mt-5 p-4 bg-dark text-white text-center rounded">
+        <h4>Proyecto Realizado por Rahmat Velasquez - 2023</h4>
+        <a href="https://www.facebook.com/RivD.09/"><i class="fa-brands fa-facebook fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="https://github.com/RivD09"><i class="fa-brands fa-github fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="https://www.linkedin.com/in/rahmat-velasquez/"><i class="fa-brands fa-linkedin fa-2xl" style="color: #ffffff;"></i></a>
+    </footer>
 </body>
 </html>

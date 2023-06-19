@@ -4,62 +4,98 @@
 <head>
     <meta charset="UTF-8">
     <title>Clientes</title>
+    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/2e21902613.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<header class="container text-center">
+    <div class="p-5 bg-dark text-white rounded">
+        <div class="m-2">
+            <h1>CLIENTES  <i class="fa-solid fa-users fa-sm" style="color: #ffffff;"></i></h1>
+        </div>
+        <div class="m-1">
+            <h3>Registrar, Visualizar y Eliminar Clientes</h3>
+        </div>
+    </div>
+</header>
 
-<header th:replace="layout/plantilla :: header"></header>
-
-<div>
-    <!--th:object busca entre las entidades del paquete domain-->
-    <form th:action="@{/guardarCliente}" method="post" th:object="${cliente}">
-        <table border="1px">
-            <tr>
-                <th><h3>Registrar Cliente</h3></th>
-            </tr>
-            <input type="hidden" name="cod_cliente" th:field="*{cod_cliente}">
-            <tr>
-                <td>
-                    <label for="nombre">Nombres y Apellidos</label>
-                </td>
-                <td><input type="text" name="nombre" th:field="*{nombre}"></td>
-                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error nombre</span>
-            </tr>
-            <tr>
-                <td>
-                    <label for="ruc">RUC</label>
-                </td>
-                <td><input type="text" name="ruc" th:field="*{ruc}"></td>
-                <span th:if="${#fields.hasErrors('ruc')}" th:errors="*{ruc}">Error RUC</span>
-            </tr>
-        </table>
-        <input type="submit" name="guardar" value="Registrar Cliente" onclick="location.reload()">
-    </form>
+<div class="container text-center">
+    <div class="row align-items-center">
+        <div class="col-6 border border-dark rounded" style="background-color:rgb(247, 249, 249)">
+            <!--th:object busca entre las entidades del paquete domain-->
+            <form th:action="@{/guardarCliente}" method="post" th:object="${cliente}">
+                <div class="row">
+                    <div class="row text-center m-2">
+                        <h3>Registrar Cliente</h3>
+                    </div>
+                    <input type="hidden" name="cod_cliente" th:field="*{cod_cliente}">
+                    <div class="row text-center m-1">
+                        <div class="col-6">
+                            <label for="nombre">Nombres y Apellidos</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control">
+                            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error nombre</span>
+                        </div>
+                    </div>
+                    <div class="row text-center m-2">
+                        <div class="col-6">
+                            <label for="ruc">RUC</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="ruc" th:field="*{ruc}" class="form-control">
+                            <span th:if="${#fields.hasErrors('ruc')}" th:errors="*{ruc}">Error RUC</span>
+                        </div>
+                    </div>
+                    <div class="row text-center m-2">
+                        <div class="col-6 mx-auto">
+                            <input type="submit" name="guardar" value="Registrar Cliente" role="button" class="btn btn-success" onclick="location.reload()">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <img th:src="@{/images/LogoUtiles.png}" alt="Logo" class="img-fluid" >
+        </div>
+    </div>
 </div>
 
-<div>
-    <div>
-        <h2>Catalogo de Utiles</h2>
-        <div th:if="${clientes!=null and !clientes.empty}">
-            <table border="1px">
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>RUC</th>
-                    <th></th>
-                </tr>
-                <tr th:each="cliente : ${clientes}">
-                    <td th:text="${cliente.cod_cliente}">Mostrar codigo</td>
-                    <td th:text="${cliente.nombre}">Mostrar nombres</td>
-                    <td th:text="${cliente.ruc}">Mostrar RUC</td>
-                    <td><a th:href="@{/eliminarCliente/} + ${cliente.cod_cliente}">Eliminar</a></td>
-                </tr>
-            </table>
+<div class="container text-center">
+    <div class="row">
+        <div class="row text-center m-2">
+            <h2>Catalogo de Utiles</h2>
+        </div>
+        <div th:if="${clientes!=null and !clientes.empty}" class="row d-flex justify-content-center">
+            <div class="col-9">
+                <table class="table align-middle">
+                    <thead class="table-secondary">
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>RUC</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cliente : ${clientes}">
+                        <td th:text="${cliente.cod_cliente}">Mostrar codigo</td>
+                        <td th:text="${cliente.nombre}">Mostrar nombres</td>
+                        <td th:text="${cliente.ruc}">Mostrar RUC</td>
+                        <td><a th:href="@{/eliminarCliente/} + ${cliente.cod_cliente}" role="button" class="btn btn-danger">Eliminar</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div th:if="${clientes==null or clientes.empty}">
             Lista de Clientes vacia
         </div>
     </div>
-    <a th:href="@{/}">Regresar</a>
+    <div class="container text-center m-3">
+        <a th:href="@{/}" role="button" class="btn btn-primary">Regresar</a>
+    </div>
+
 </div>
 </body>
 </html>

@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml"
       lang="es">
-<head th:fragment="head">
+<head>
     <meta charset="UTF-8"/>
-
+    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <header th:fragment="header">
+    <header th:fragment="header" class="container text-center">
         <h1>TIENDA UTILES</h1>
-        <img th:src="@{/images/LogoTiendaUtil.png}" alt="Logo">
+        <img th:src="@{/images/LogoUtiles.png}" alt="Logo" class="img-fluid" >
     </header>
 
 </body>
