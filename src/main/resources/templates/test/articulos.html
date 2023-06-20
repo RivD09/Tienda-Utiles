@@ -4,69 +4,107 @@
 <head>
     <meta charset="UTF-8">
     <title>Articulos</title>
+    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/2e21902613.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<header th:replace="layout/plantilla :: header"></header>
-
-<div>
-    <form th:action="@{/guardarArticulo}" method="post" th:object="${articulo}">
-        <table border="1px">
-            <tr>
-                <th><h3>Registrar Articulo</h3></th>
-            </tr>
-            <input type="hidden" name="cod_articulo" th:field="*{cod_articulo}">
-            <tr>
-                <td>
-                    <label for="nombre">Nombre</label>
-                </td>
-                <td><input type="text" name="nombre" th:field="*{nombre}">
-                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"> Error nombre</span>
-            </tr>
-            <tr>
-                <td>
-                    <label for="precio_unit">Precio</label>
-                </td>
-                <td><input type="text" name="precio_unit" th:field="*{precio_unit}"></td>
-                <span th:if="${#fields.hasErrors('precio_unit')}" th:errors="*{precio_unit}"> Error precio</span>
-            </tr>
-            <tr>
-                <td>
-                    <label for="cantidad">Cantidad</label>
-                </td>
-                <td><input type="text" name="cantidad" th:field="*{cantidad}"></td>
-                <span th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"> Error cantidad</span>
-            </tr>
-        </table>
-        <input type="submit" name="guardar" value="Registrar Articulo" onclick="location.reload()">
-    </form>
+<header class="container text-center">
+    <div class="p-5 bg-dark text-white rounded">
+        <div class="m-2">
+            <h1>INVENTARIO  <i class="fa-solid fa-warehouse" style="color: #ffffff;"></i></i></h1>
+        </div>
+        <div class="m-1">
+            <h3>Registrar, Visualizar y Eliminar Articulos</h3>
+        </div>
+    </div>
+</header>
+<br>
+<div class="container text-center">
+    <div class="row align-items-center">
+        <div class="col-6 border border-dark rounded" style="background-color:rgb(247, 249, 249)">
+            <form th:action="@{/guardarArticulo}" method="post" th:object="${articulo}">
+                <div class="row">
+                    <div class="row text-center m-2">
+                        <h3>Registrar Articulo</h3>
+                    </div>
+                    <input type="hidden" name="cod_articulo" th:field="*{cod_articulo}">
+                    <div class="row text-center m-1">
+                        <div class="col-6">
+                            <label for="nombre">Articulo</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control">
+                            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"> Error nombre</span>
+                        </div>
+                    </div>
+                    <div class="row text-center m-2">
+                        <div class="col-6">
+                            <label for="precio_unit">Precio</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="precio_unit" th:field="*{precio_unit}" class="form-control">
+                            <span th:if="${#fields.hasErrors('precio_unit')}" th:errors="*{precio_unit}"> Error precio</span>
+                        </div>
+                    </div>
+                    <div class="row text-center m-2">
+                        <div class="col-6">
+                            <label for="cantidad">Cantidad</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="cantidad" th:field="*{cantidad}" class="form-control">
+                            <span th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"> Error cantidad</span>
+                        </div>
+                    </div>
+                    <div class="row text-center m-2">
+                        <div class="col-6 mx-auto">
+                            <input type="submit" name="guardar" value="Registrar Articulo" role="button" class="btn btn-success" onclick="location.reload()">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <img th:src="@{/images/LogoUtiles.png}" alt="Logo" class="img-fluid" >
+        </div>
+    </div>
 </div>
 
-<div>
-    <div>
-        <h2>Catalogo de Utiles</h2>
-        <div th:if="${articulos!=null and !articulos.empty}">
-            <table border="1px">
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>Precio Unit.</th>
-                    <th>Cantidad Disp.</th>
-                </tr>
-                <tr th:each="articulo : ${articulos}">
-                    <td th:text="${articulo.cod_articulo}">Mostrar codigo</td>
-                    <td th:text="${articulo.nombre}">Mostrar nombre</td>
-                    <td th:text="${articulo.precio_unit}">Mostrar precio</td>
-                    <td th:text="${articulo.cantidad}">Mostrar cantidad</td>
-                    <td><a th:href="@{/eliminarArticulo/} + ${articulo.cod_articulo}">Eliminar</a></td>
-                </tr>
-            </table>
+<div class="container text-center">
+    <div class="row">
+        <div class="row text-center m-2">
+            <h2>Catalogo de Utiles</h2>
+        </div>
+        <div th:if="${articulos!=null and !articulos.empty}" class="row d-flex justify-content-center">
+            <div class="col-9">
+                <table class="table align-middle">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Precio Unit.</th>
+                            <th>Cantidad Disp.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="articulo : ${articulos}">
+                            <td th:text="${articulo.cod_articulo}">Mostrar codigo</td>
+                            <td th:text="${articulo.nombre}">Mostrar nombre</td>
+                            <td th:text="${articulo.precio_unit}">Mostrar precio</td>
+                            <td th:text="${articulo.cantidad}">Mostrar cantidad</td>
+                            <td><a th:href="@{/eliminarArticulo/} + ${articulo.cod_articulo}">Eliminar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div th:if="${articulos==null or articulos.empty}">
             Lista de Articulos vacia
         </div>
     </div>
-    <a th:href="@{/}">Regresar</a>
+    <div class="container text-center m-3">
+        <a th:href="@{/}" role="button" class="btn btn-primary">Regresar</a>
+    </div>
 </div>
 </body>
 </html>

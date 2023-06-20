@@ -33,6 +33,8 @@ function limpiarTabla(tabla) {
 }
 
 function crearEncabezado(tabla) {
+    var thead = document.createElement("thead");
+    thead.className("table-secondary");
     var encabezado = document.createElement("tr");
     var encabezadoColumnas = ["Código", "Nombre", "Precio", "Disponible", "Cantidad a llevar"];
 
@@ -40,12 +42,15 @@ function crearEncabezado(tabla) {
         var celda = document.createElement("th");
         celda.textContent = titulo;
         encabezado.appendChild(celda);
+        thead.appendChild(encabezado)
     });
 
-    tabla.appendChild(encabezado);
+    tabla.appendChild(thead);
 }
 
 function crearEncabezadoCarrito(tabla) {
+    var thead = document.createElement("thead");
+    thead.className("table-secondary");
     var encabezado = document.createElement("tr");
     var encabezadoColumnas = ["Código", "Nombre", "Precio", "Cantidad", "Subtotal", "Borrar"];
 
@@ -53,13 +58,15 @@ function crearEncabezadoCarrito(tabla) {
         var celda = document.createElement("th");
         celda.textContent = titulo;
         encabezado.appendChild(celda);
+        thead.appendChild(encabezado)
     });
 
-    tabla.appendChild(encabezado);
+    tabla.appendChild(thead);
 }
 
 
 function crearFilasDatos(data, tabla) {
+    var tbody = document.createElement("tbody");
     data.forEach(function (articulo) {
         var fila = document.createElement("tr");
         var columnas = [articulo.cod_articulo, articulo.nombre, articulo.precio_unit, articulo.cantidad];
@@ -80,8 +87,8 @@ function crearFilasDatos(data, tabla) {
         inputNumero.id="cant-" + articulo.cod_articulo;
         celdaNumero.appendChild(inputNumero);
         fila.appendChild(celdaNumero);
-
-        tabla.appendChild(fila);
+        tbody.appendChild(fila);
+        tabla.appendChild(tbody);
     });
 }
 
@@ -122,6 +129,8 @@ function actualizarTablaCarrito() {
     var carrito = document.getElementById("tabla-carrito");
     limpiarTabla(carrito);
     crearEncabezadoCarrito(carrito)
+
+    var tbody = document.createElement("tbody");
 
     var totalCarrito = 0; // Variable para almacenar la suma de los subtotales
     var indice = 0;
@@ -176,7 +185,8 @@ function actualizarTablaCarrito() {
         celdaBorrar.appendChild(botonBorrar);
         filaCarrito.appendChild(celdaBorrar);
 
-        carrito.appendChild(filaCarrito);
+        tbody.appendChild(filaCarrito);
+        carrito.appendChild(tbody);
 
         totalCarrito += subtotal; // Sumar el subtotal al total del carrito
         indice++;

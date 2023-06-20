@@ -4,58 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <title>Compra Utiles</title>
+    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/2e21902613.js" crossorigin="anonymous"></script>
     <script src="/js/main.js"></script>
 </head>
 <body>
-<header th:replace="layout/plantilla :: header"></header>
-<div>
-    <form th:action="@{/factura}" method="post">
-        <div>
-            <table>
-                <tr>
-                    <th><h3>Cliente</h3></th>
-                </tr>
-                <tr>
-                    <td>Nombres</td>
-                    <td><input type="text" id="nombres"></td>
-                </tr>
-                <tr>
-                    <td>Apellidos</td>
-                    <td><input type="text" id="apellidos"></td>
-                </tr>
-                <input type="hidden" id="nombresCompletos" name="cliente.nombre">
-                <tr>
-                    <td>RUC</td>
-                    <td><input type="text" name="cliente.ruc"></td>
-                </tr>
-            </table>
+<header class="container text-center">
+    <div class="p-5 bg-dark text-white rounded">
+        <div class="m-2">
+            <h1>COMPRA <i class="fa-solid fa-users fa-sm" style="color: #ffffff;"></i></h1>
         </div>
-        <div>
-            <div>
-                <h2>Utiles</h2>
-                <input id="nombre-articulo" type="text">
-                <button type="button" onclick="buscarArticulos()">Buscar</button>
-                <br>
-                <br>
-                <div>
-                    <table id="tabla-articulos" border="1px">
+        <div class="m-1">
+            <h3>Realizar una compra: Cliente y Carrito de Compras</h3>
+        </div>
+    </div>
+</header>
+<form th:action="@{/factura}" method="post">
+    <div class="container text-center">
+        <div class="row align-items-center">
+            <div class="col-6 border border-dark rounded" style="background-color:rgb(247, 249, 249)">
+                <div class="row">
+                    <div class="row text-center m-2">
+                        <th><h3>Cliente</h3></th>
+                    </div>
+                    <div class="row text-center m-1">
+                        <div class="col-6">
+                            <label>Nombres</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="nombres" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row text-center m-1">
+                        <div class="col-6">
+                            <label>Apellidos</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="apellidos" class="form-control">
+                        </div>
+                    </div>
+                    <input type="hidden" id="nombresCompletos" name="cliente.nombre">
+                    <div class="row text-center m-1">
+                        <div class="col-6">
+                            <label>RUC</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="cliente.ruc" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <img th:src="@{/images/LogoUtiles.png}" alt="Logo" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-6">
+                <div class="row text-center m-2">
+                    <label>Utiles</label>
+                    <input id="nombre-articulo" type="text" class="form-control">
+                    <button type="button" onclick="buscarArticulos()" class="btn btn-success">Buscar</button>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <table id="tabla-articulos" class="table align-middle">
                     </table>
                 </div>
             </div>
-            <div>
-                <h2>Carrito</h2>
-                <br>
-                <br>
-                <table id="tabla-carrito" border="1px">
-                </table>
-                <h3>Total</h3>
-                <p id="total-carrito">$ 0.00</p>
+            <div class="col-6">
+
+                    <div class="row text-center m-2">
+                        <label>Carrito</label>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <table id="tabla-carrito" class="table align-middle">
+                        </table>
+                    </div>
+                <div class="row text-center m-2">
+                    <label>Total</label>
+                    <p id="total-carrito">$ 0.00</p>
+                </div>
             </div>
         </div>
-        <a th:href="@{/}">Regresar</a>
-        <br>
-        <input type="submit" value="Comprar">
-    </form>
-</div>
+        <div class="row">
+            <input type="submit" value="Comprar" role="button" class="btn btn-success">
+        </div>
+        <div class="container text-center m-3">
+            <a th:href="@{/}" role="button" class="btn btn-primary">Regresar</a>
+        </div>
+    </div>
+</form>
+
 </body>
 </html>
