@@ -34,7 +34,7 @@ function limpiarTabla(tabla) {
 
 function crearEncabezado(tabla) {
     var thead = document.createElement("thead");
-    thead.className("table-secondary");
+    thead.className = "table-secondary";
     var encabezado = document.createElement("tr");
     var encabezadoColumnas = ["Código", "Nombre", "Precio", "Disponible", "Cantidad a llevar"];
 
@@ -50,7 +50,7 @@ function crearEncabezado(tabla) {
 
 function crearEncabezadoCarrito(tabla) {
     var thead = document.createElement("thead");
-    thead.className("table-secondary");
+    thead.className = "table-secondary";
     var encabezado = document.createElement("tr");
     var encabezadoColumnas = ["Código", "Nombre", "Precio", "Cantidad", "Subtotal", "Borrar"];
 
@@ -141,33 +141,37 @@ function actualizarTablaCarrito() {
 
         var celdaCodigo = document.createElement("td");
         var inputCodigo = document.createElement("input");
-        inputCodigo.type="text";
+        inputCodigo.type="hidden";
         inputCodigo.name="detalleFacturas[" + indice.toString() + "].articulo.cod_articulo";
         inputCodigo.value = articulo.cod_articulo;
+        celdaCodigo.textContent = articulo.cod_articulo;
         celdaCodigo.appendChild(inputCodigo);
         filaCarrito.appendChild(celdaCodigo);
 
         var celdaNombre = document.createElement("td");
         var inputNombre = document.createElement("input");
-        inputNombre.type="text";
+        inputNombre.type="hidden";
         inputNombre.name="detalleFacturas[" + indice.toString() + "].articulo.nombre";
         inputNombre.value = articulo.nombre;
+        celdaNombre.textContent = articulo.nombre;
         celdaNombre.appendChild(inputNombre);
         filaCarrito.appendChild(celdaNombre);
 
         var celdaPrecio = document.createElement("td");
         var inputPrecio = document.createElement("input");
-        inputPrecio.type="text";
+        inputPrecio.type="hidden";
         inputPrecio.name="detalleFacturas[" + indice.toString() + "].precio";
         inputPrecio.value = articulo.precio_unit;
+        celdaPrecio.textContent = articulo.precio_unit;
         celdaPrecio.appendChild(inputPrecio);
         filaCarrito.appendChild(celdaPrecio);
 
         var celdaCantidadCarrito = document.createElement("td");
         var inputCantidadCarrito = document.createElement("input");
-        inputCantidadCarrito.type="text";
+        inputCantidadCarrito.type="hidden";
         inputCantidadCarrito.name="detalleFacturas[" + indice.toString() + "].cantidad";
         inputCantidadCarrito.value = articulo.cantidad;
+        celdaCantidadCarrito.textContent = articulo.cantidad;
         celdaCantidadCarrito.appendChild(inputCantidadCarrito);
         filaCarrito.appendChild(celdaCantidadCarrito);
 

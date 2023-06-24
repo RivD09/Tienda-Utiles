@@ -61,37 +61,48 @@
     </div>
     <div class="container text-center">
         <div class="row">
-            <div class="col-6">
-                <div class="row text-center m-2">
-                    <label>Utiles</label>
-                    <input id="nombre-articulo" type="text" class="form-control">
-                    <button type="button" onclick="buscarArticulos()" class="btn btn-success">Buscar</button>
+            <div class="col-5 m-2">
+                <div class="row d-flex justify-content-center mb-5">
+                    <div class="row d-flex justify-content-center m-2">
+                        <h3>Utiles</h3>
+                    </div>
+                    <div class="row d-flex justify-content-center bg-secondary">
+                        <div class="col-8 m-1">
+                            <input id="nombre-articulo" type="text" class="form-control">
+                        </div>
+                        <div class="col-3 m-1">
+                            <button type="button" onclick="buscarArticulos()" class="btn btn-success">Buscar</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="row d-flex justify-content-center">
                     <table id="tabla-articulos" class="table align-middle">
                     </table>
                 </div>
             </div>
-            <div class="col-6">
-
-                    <div class="row text-center m-2">
-                        <label>Carrito</label>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <table id="tabla-carrito" class="table align-middle">
-                        </table>
-                    </div>
+            <div class="col-6 m-2">
                 <div class="row text-center m-2">
-                    <label>Total</label>
+                    <h3>Carrito</h3>
+                </div>
+                <div class="row text-center m-2">
+                    <h4>Total</h4>
                     <p id="total-carrito">$ 0.00</p>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <table id="tabla-carrito" class="table align-middle">
+                    </table>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <input type="submit" value="Comprar" role="button" class="btn btn-success">
+        <div class="row text-center">
+            <div class="container">
+                <input type="submit" value="Comprar" role="button" class="btn btn-success btn-lg">
+            </div>
         </div>
-        <div class="container text-center m-3">
-            <a th:href="@{/}" role="button" class="btn btn-primary">Regresar</a>
+        <div class="row text-center">
+            <div class="container m-2">
+                <a th:href="@{/}" role="button" class="btn btn-primary">Regresar</a>
+            </div>
         </div>
     </div>
 </form>
