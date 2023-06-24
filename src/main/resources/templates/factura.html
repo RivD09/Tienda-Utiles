@@ -4,83 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <title>Factura</title>
+    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/2e21902613.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<header th:replace="layout/plantilla :: header"></header>
+<header class="container text-center">
+    <div class="p-5 bg-dark text-white rounded">
+        <div class="m-2">
+            <h1>FACTURA <i class="fa-sharp fa-solid fa-file-invoice fa-sm" style="color: #ffffff;"></i></h1>
+        </div>
+        <div class="m-1">
+            <h3>Datos de la Factura y cuenta por cobrar</h3>
+        </div>
+    </div>
+</header>
+<br>
+<br>
 <div>
-    <h1>FACTURA</h1>
+    <div class="container">
         <div th:object="${factura}">
-            <table>
-                <tr>
-                    <th><h3>Cliente</h3></th>
-                </tr>
-                <tr>
-                    <td>Apellidos y Nombres</td>
-                    <td><input type="text" id="nombres" disabled="disabled" th:value="*{getCliente().nombre}"></td>
-                </tr>
-                <tr>
-                    <td>RUC</td>
-                    <td><input type="text" name="cliente.ruc" disabled="disabled" th:value="*{getCliente().ruc}"></td>
-                </tr>
-            </table>
-            <br>
-            <table>
-                <tr>
-                    <th><h3>Detalles</h3></th>
-                </tr>
-                <tr>
-                    <td>Número de Factura</td>
-                    <td><input type="text" id="nombres" disabled="disabled" th:value="*{getNum_factura()}"></td>
-                </tr>
-                <tr>
-                    <td>Fecha</td>
-                    <td><input type="text" id="apellidos" disabled="disabled" th:value="*{getFecha().toString()}"></td>
-                </tr>
-            </table>
+            <div class="row d-flex justify-content-center">
+                <div class="col-5 m-2">
+                    <div class="row d-flex justify-content-center">
+                        <div class="container">
+                            <h4>Cliente</h4>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5 m-1">
+                            <h6>Apellidos y Nombres</h6>
+                        </div>
+                        <div class="col-5 m-1">
+                            <input type="text" id="nombres" disabled="disabled" th:value="*{getCliente().nombre}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5 m-1">
+                            <h6>RUC</h6>
+                        </div>
+                        <div class="col-5 m-1">
+                            <input type="text" name="cliente.ruc" disabled="disabled" th:value="*{getCliente().ruc}" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5 m-2">
+                    <div class="row d-flex justify-content-center">
+                        <div class="container">
+                            <h4>Detalles</h4>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5 m-1">
+                            <h6>Número de Factura</h6>
+                        </div>
+                        <div class="col-5 m-1">
+                            <input type="text" id="nombres" disabled="disabled" th:value="*{getNum_factura()}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5 m-1">
+                            <h6>Fecha</h6>
+                        </div>
+                        <div class="col-5 m-1">
+                            <input type="text" id="apellidos" disabled="disabled" th:value="*{getFecha().toString()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <table border="1px">
-                <tr>
-                    <th><h3>Útiles</h3></th>
-                </tr>
-                <tr>
-                    <th>Código</th>
-                    <th>Artículo</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unitario</th>
-                    <th>Subtotal</th>
-                </tr>
-                <tr th:each="detalleFactura : ${detalle}">
-                    <td th:text="${detalleFactura.articulo.cod_articulo}">Mostrar Código</td>
-                    <td th:text="${detalleFactura.articulo.nombre}">Mostrar Artículo</td>
-                    <td th:text="${detalleFactura.cantidad}">Mostrar Cantidad</td>
-                    <td th:text="${detalleFactura.precio}">Mostrar Precio Unitario</td>
-                    <td th:text="${detalleFactura.cantidad*detalleFactura.precio}">Mostrar Subtotal</td>
-                </tr>
-            </table>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-5 m-1">
+                <div class="container m-1">
+                    <h4>Útiles</h4>
+                </div>
+                <table class="table align-middle">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Código</th>
+                            <th>Artículo</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="detalleFactura : ${detalle}">
+                            <td th:text="${detalleFactura.articulo.cod_articulo}">Mostrar Código</td>
+                            <td th:text="${detalleFactura.articulo.nombre}">Mostrar Artículo</td>
+                            <td th:text="${detalleFactura.cantidad}">Mostrar Cantidad</td>
+                            <td th:text="${detalleFactura.precio}">Mostrar Precio Unitario</td>
+                            <td th:text="${detalleFactura.cantidad*detalleFactura.precio}">Mostrar Subtotal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-5 m-1">
+                <div class="container m-1">
+                    <h4>Cuenta por Cobrar</h4>
+                </div>
+                <table class="table align-middle">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Número de Cuenta</th>
+                            <th>Fecha de Cobro</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td th:text="${cuentaCobrar.num_cuenta}">Mostrar número de Cuenta</td>
+                            <td th:text="${cuentaCobrar.fecha_cobro.toString()}">Mostrar Fecha de Cobro</td>
+                            <td th:text="${cuentaCobrar.estado}">Mostrar Estado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div>
-            <label>IGV</label>
-            <input type="text" disabled="disabled" th:value="${igv}" >
-            <label>Total a Pagar</label>
-            <input type="text" disabled="disabled" th:value="${total}">
+        <div class="row d-flex justify-content-center m-2">
+            <div class="col-5 m-2">
+                <div class="container text-center">
+                    <h5>IGV</h5>
+                    <div class="container">
+                        <input type="text" disabled="disabled" th:value="${igv}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 m-2">
+                <div class="container text-center">
+                    <h5>Total a Pagar</h5>
+                    <div class="container">
+                        <input type="text" disabled="disabled" th:value="${total}" class="form-control">
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div>
-            <table border="1px">
-                <tr>
-                   <th>Número de Cuenta</th>
-                   <th>Fecha de Cobro</th>
-                   <th>Estado</th>
-                </tr>
-                <tr>
-                    <td th:text="${cuentaCobrar.num_cuenta}">Mostrar número de Cuenta</td>
-                    <td th:text="${cuentaCobrar.fecha_cobro.toString()}">Mostrar Fecha de Cobro</td>
-                    <td th:text="${cuentaCobrar.estado}">Mostrar Estado</td>
-                </tr>
-            </table>
+        <div class="row d-flex justify-content-center m-2">
+            <div class="container text-center">
+                <a th:href="@{/}" role="button" class="btn btn-primary">Regresar</a>
+            </div>
         </div>
-        <a th:href="@{/}">Regresar</a>
+    </div>
 </div>
 </body>
 </html>
