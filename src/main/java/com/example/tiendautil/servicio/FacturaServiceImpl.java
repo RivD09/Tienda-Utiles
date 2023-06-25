@@ -78,4 +78,17 @@ public class FacturaServiceImpl implements FacturaService{
         return total;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Factura> listarFacturas() {
+        return (List<Factura>) facturaDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void eliminar(Factura factura) {
+        factura = facturaDao.findById(factura.getNum_factura()).orElse(null);
+        facturaDao.delete(factura);
+    }
+
 }

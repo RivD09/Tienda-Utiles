@@ -13,18 +13,15 @@
             <p>Proyecto realizado para poner en práctica conocimientos de Spring Boot, Hibernate y Thymeleaf</p>
         </div>
         <h1>TIENDA UTILES ESCOLARES</h1>
-        <img th:src="@{/images/LogoUtiles.png}" alt="Logo" class="img-fluid" >
+        <img th:src="@{/images/Logo.png}" alt="Logo" class="img-fluid" >
     </header>
     <div class="container text-center">
         <div class="container">
             <div class="row text-center m-3">
-                <div class="col-4">
+                <div class="col-6">
                     <a th:href="@{/cliente}" role="button" class="btn btn-dark btn-lg p-4 m-3">Clientes</a>
                 </div>
-                <div class="col-4">
-                    <a th:href="@{/cliente}" role="button" class="btn btn-dark btn-lg p-4 m-3">Facturas</a>
-                </div>
-                <div class="col-4">
+                <div class="col-6">
                     <a th:href="@{/articulo}" role="button" class="btn btn-dark btn-lg p-4 m-3">Inventario</a>
                 </div>
             </div>
@@ -32,8 +29,8 @@
                 <div class="col-6">
                     <a th:href="@{/compra}" role="button" class="btn btn-dark btn-lg p-4 m-3">Registrar Compra</a>
                 </div>
-                <div class="col-6">
-                    <a th:href="@{/compra}" role="button" class="btn btn-dark btn-lg p-4 m-3">Cuentas por Cobrar</a>
+                <div class="col-4">
+                    <a th:href="@{/facturas}" role="button" class="btn btn-dark btn-lg p-4 m-3">Facturas</a>
                 </div>
             </div>
         </div>

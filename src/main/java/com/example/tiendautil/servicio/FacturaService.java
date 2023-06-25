@@ -10,4 +10,6 @@ public interface FacturaService {
 
     public void guardarFactura(Factura factura);
     public float calcularTotal(Factura factura);
+    public List<Factura> listarFacturas();
+    public void eliminar(Factura factura);
 }

@@ -26,4 +26,8 @@ public class DetalleFactura implements Serializable {
     private int cantidad;
 
     private float precio;
+    public float calcularSubtotal(){
+        return cantidad*precio;
+    }
+
 }

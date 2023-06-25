@@ -52,9 +52,18 @@ public class ControladorVistas {
         return "/test/articulos";
     }
 
+    @GetMapping("/facturas")
+    public String listarFacturas(Model model){
+        var  facturas = facturaService.listarFacturas();
+
+        model.addAttribute("facturas",facturas);
+        log.info("****Listando Facturas");
+        return "test/facturas";
+    }
+
     @GetMapping("/compra")
     public String compra(){
-        return "/compraUtiles";
+        return "compra";
     }
 
     @PostMapping("/guardarCliente")
@@ -93,6 +102,14 @@ public class ControladorVistas {
         articuloService.eliminar(articulo);
         log.info("*****Se elimino articulo" + articulo.getNombre());
         return "redirect:/articulo";
+    }
+
+    @GetMapping("/eliminarFactura/{num_factura}")
+    public String eliminarFactura(@Valid Factura factura, Errors errores){
+        log.info("*****Borrando factura");
+        facturaService.eliminar(factura);
+        log.info("*****Se elimino factura" + factura.getNum_factura());
+        return "redirect:/facturas";
     }
 
     @PostMapping("buscarArticulo")

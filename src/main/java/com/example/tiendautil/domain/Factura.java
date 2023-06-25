@@ -18,7 +18,7 @@ public class Factura implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int num_factura;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name ="cod_cliente")    //JoinColumn: indica la columna que viene a ser la clave foranea
     private Cliente cliente;
 
@@ -31,4 +31,12 @@ public class Factura implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "num_cuenta")
     private CuentaCobrar cuentaCobrar;
+
+    public float calcularTotal(){
+        float total = 0;
+        for (DetalleFactura detalle : detalleFacturas){
+            total = total + detalle.calcularSubtotal();
+        }
+        return total;
+    }
 }
